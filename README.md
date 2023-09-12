@@ -68,3 +68,16 @@ def middle():
 
     return '\n'.join(result)
 ```
+
+### 3 5 15
+```python
+from functools import partial
+from itertools import filterfalse
+from operator import mod, methodcaller, mul
+
+reverse = lambda f: lambda *x: f(*reversed(x))
+compose2 = lambda f, g: lambda *x: f(g(*x))
+print(sum(map(mul, [1, 1, -1], map(sum, map(methodcaller('__call__', range(1000)),
+      map(compose2(partial(partial, filterfalse), partial(partial, reverse(mod))), [3, 5, 15]))))))
+
+```
